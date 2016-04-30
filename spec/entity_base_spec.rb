@@ -19,14 +19,14 @@ describe EntityBase do
     it 'should be able to make class prototype methods' do
       clazz.include EntityBase
       expect { clazz.prototype_class_methods :foo }.not_to raise_error
-      expect { clazz.prototype_class_methods :bar }.to raise_error EntityBase::PrototypeNotImplementedError
+      expect { clazz.prototype_class_methods :bar }.to raise_error PrototypeNotImplementedError
     end
 
     it 'should prototype methods' do
       clazz.include EntityBase
 
       expect { clazz.prototype_methods :bar }.not_to raise_error
-      expect { clazz.prototype_methods :foo }.to raise_error EntityBase::PrototypeNotImplementedError
+      expect { clazz.prototype_methods :foo }.to raise_error PrototypeNotImplementedError
     end
   end
 
@@ -34,14 +34,14 @@ describe EntityBase do
     it 'should be able to make class prototype methods' do
       clazz.include EntityBase
       expect { clazz.new.prototype_class_methods :foo }.not_to raise_error
-      expect { clazz.new.prototype_class_methods :bar }.to raise_error EntityBase::PrototypeNotImplementedError
+      expect { clazz.new.prototype_class_methods :bar }.to raise_error PrototypeNotImplementedError
     end
 
     it 'should prototype methods' do
       clazz.include EntityBase
 
       expect { clazz.new.prototype_methods :bar }.not_to raise_error
-      expect { clazz.new.prototype_methods :foo }.to raise_error EntityBase::PrototypeNotImplementedError
+      expect { clazz.new.prototype_methods :foo }.to raise_error PrototypeNotImplementedError
     end
   end
 end

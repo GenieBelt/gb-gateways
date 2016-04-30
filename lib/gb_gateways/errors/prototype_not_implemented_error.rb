@@ -1,0 +1,2 @@
+class PrototypeNotImplementedError< NoMethodError
+end

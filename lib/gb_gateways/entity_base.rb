@@ -1,5 +1,5 @@
+require 'gb_gateways/errors/prototype_not_implemented_error'
 module EntityBase
-  class PrototypeNotImplementedError < NoMethodError; end
   def prototype_class_methods(*names)
     names.each do |name|
       clazz = self.is_a?(Class) ? self : self.class
