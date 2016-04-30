@@ -1,11 +1,14 @@
+require 'active_support/core_ext/string'
 class AbstractGateway
   # noinspection RubyClassVariableUsageInspection
   @@load_paths = nil
 
   class << self
     attr_accessor :file_name, :file_path
+    attr_reader :entity_class
 
     def gateway=(clazz)
+      raise ArgumentError, 'Gateway have to be a class!' unless clazz.is_a? Class
       if clazz != @gateway
         undefine_old_gateway
         define_new_gateway(clazz)
@@ -66,7 +69,7 @@ class AbstractGateway
         class_name = name.split('::').last
         namespace = name.split('::')
         namespace.pop
-        namespace = nil if namespace.any?
+        namespace = nil if namespace.empty?
         name_array = class_name.underscore.split('_')
         name_array.pop() #remove Gateway part
         class_name = name_array.join('_').camelcase
