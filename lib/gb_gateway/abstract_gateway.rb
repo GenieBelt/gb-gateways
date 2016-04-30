@@ -1,4 +1,5 @@
 class AbstractGateway
+  # noinspection RubyClassVariableUsageInspection
   @@load_paths = nil
 
   class << self
