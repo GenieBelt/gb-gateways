@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'gb_gateway/version'
+require 'gb_gateways/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'gb_gateway'
-  spec.version       = GBGateway::VERSION
+  spec.name          = 'gb_gateways'
+  spec.version       = GBGateways::VERSION
   spec.authors       = ['Kacper Kawecki']
   spec.email         = ['kacper@geniebelt.com']
 
