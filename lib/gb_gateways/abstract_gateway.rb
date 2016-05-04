@@ -29,8 +29,8 @@ class AbstractGateway
       unless @@load_paths
         @@load_paths = []
         if defined?(Rails)
-          @@load_paths << "#{Rails.root}/app/models/"
-          @@load_paths << "#{Rails.root}/app/entities/"
+          @@load_paths << "#{Rails.root}/app/models/".freeze
+          @@load_paths << "#{Rails.root}/app/entities/".freeze
         end
       end
       @@load_paths
@@ -55,12 +55,13 @@ class AbstractGateway
 
     def define_new_gateway(clazz)
       @entity_class = Class.new(clazz)
-      Object.const_set(gateway_name, @entity_class)
+      (class_namespace || Object).const_set(gateway_class_name, @entity_class)
     end
 
     def undefine_old_gateway
-      if Object.constants.include?(gateway_name.to_sym)
-        Object.send(:remove_const, gateway_name.to_sym)
+      namespace = class_namespace || Object
+      if namespace.constants.include?(gateway_class_name.to_sym)
+        namespace.send(:remove_const, gateway_class_name.to_sym)
       end
     end
 
@@ -73,13 +74,27 @@ class AbstractGateway
         name_array = class_name.underscore.split('_')
         name_array.pop() #remove Gateway part
         class_name = name_array.join('_').camelcase
+        @gateway_class_name = class_name
         if namespace
           @gateway_name = (namespace + [class_name]).join('::')
+          @namespace = Object.const_get namespace
         else
           @gateway_name = class_name
         end
+        @gateway_class_name.freeze
+        @gateway_name.freeze
       end
       @gateway_name
+    end
+
+    def gateway_class_name
+      gateway_name
+      @gateway_class_name
+    end
+
+    def class_namespace
+      gateway_name
+      @namespace
     end
   end
 end
